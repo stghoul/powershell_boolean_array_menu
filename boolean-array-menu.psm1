@@ -9,10 +9,12 @@
 
 function boolean-array-menu ($array, $title) {
 	$pointer = 1
-	$default_color = (get-host).ui.rawui.BackgroundColor
 	
-	$pointer_color = "red"
-	if ($default_color -eq "red") {$pointer_color = "DarkMagenta"}
+	$default_background_color = (get-host).ui.rawui.BackgroundColor
+	$default_foreground_color = (get-host).ui.rawui.ForegroundColor
+	
+	$pointer_background_color = $host.privatedata.VerboseBackgroundColor
+	$pointer_foreground_color = $host.privatedata.VerboseForegroundColor
 	
 	while ($true) {
 		
@@ -22,12 +24,18 @@ function boolean-array-menu ($array, $title) {
 		Write-Host "---" $title "---"
 		foreach ($i in ($array.GetEnumerator() | sort -Property name)) {
 			$pos++
-			if ($pos -eq $pointer) { $color = $pointer_color } else {$color = $default_color}
+			if ($pos -eq $pointer) {
+				$background_color = $pointer_background_color
+				$foreground_color = $pointer_foreground_color
+			} else {
+				$background_color = $default_background_color
+				$foreground_color = $default_foreground_color
+			}
 			
 			if ($i.value -eq $true) {
-				Write-Host -BackgroundColor $color '[v]' $i.name
+				Write-Host -BackgroundColor $background_color -ForegroundColor $foreground_color '[v]' $i.name
 			} else {
-				Write-Host -BackgroundColor $color '[ ]' $i.name
+				Write-Host -BackgroundColor $background_color -ForegroundColor $foreground_color '[ ]' $i.name
 			}
 		}
 		
