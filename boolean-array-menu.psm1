@@ -9,7 +9,11 @@
 
 function boolean-array-menu ($array, $title) {
 	$pointer = 1
-		
+	$default_color = (get-host).ui.rawui.BackgroundColor
+	
+	$pointer_color = "red"
+	if ($default_color -eq "red") {$pointer_color = "DarkMagenta"}
+	
 	while ($true) {
 		
 		# Рисуем меню
@@ -18,7 +22,7 @@ function boolean-array-menu ($array, $title) {
 		Write-Host "---" $title "---"
 		foreach ($i in ($array.GetEnumerator() | sort -Property name)) {
 			$pos++
-			if ($pos -eq $pointer) { $color = 'Red' } else {$color = 'DarkBlue'}
+			if ($pos -eq $pointer) { $color = 'Red' } else {$color = $default_color}
 			
 			if ($i.value -eq $true) {
 				Write-Host -BackgroundColor $color '[v]' $i.name
