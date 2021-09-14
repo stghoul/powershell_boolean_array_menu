@@ -22,7 +22,7 @@ function boolean-array-menu ($array, $title) {
 		Write-Host "---" $title "---"
 		foreach ($i in ($array.GetEnumerator() | sort -Property name)) {
 			$pos++
-			if ($pos -eq $pointer) { $color = 'Red' } else {$color = $default_color}
+			if ($pos -eq $pointer) { $color = $pointer_color } else {$color = $default_color}
 			
 			if ($i.value -eq $true) {
 				Write-Host -BackgroundColor $color '[v]' $i.name
