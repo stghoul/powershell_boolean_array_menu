@@ -8,6 +8,9 @@
 
 
 function boolean-array-menu ($array, $title) {
+	$cursor_visible = [Console]::CursorVisible
+	[Console]::CursorVisible = $false
+
 	$pointer = 1
 	
 	$default_background_color = (get-host).ui.rawui.BackgroundColor
@@ -78,10 +81,12 @@ function boolean-array-menu ($array, $title) {
 			# q
 			# выходим из меню
 			81 {
+				[Console]::CursorVisible = $cursor_visible
 				return $array
 			}
 			# enter
 			13 {
+				[Console]::CursorVisible = $cursor_visible
 				return $array
 			}
 			#---
